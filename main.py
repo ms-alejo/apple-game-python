@@ -12,6 +12,9 @@ class Apple:
         self.rect = self.image.get_rect(topleft=position)
         self.speed = speed
 
+    def move(self):
+        self.rect.y += self.speed
+
 
 # constants
 TILESIZE = 32
@@ -58,6 +61,10 @@ def update():
         player_rect.x -= 8
     if keys[pygame.K_d]:
         player_rect.x += 8
+
+    # apple management
+    for apple in apples:
+        apple.move()
 
 
 def draw():
