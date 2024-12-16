@@ -1,5 +1,6 @@
 import pygame
 import sys
+import random
 
 pygame.init()
 screen = pygame.display.set_mode((350, 600))  # window frame
@@ -13,7 +14,7 @@ class Apple:
         self.speed = speed
 
     def move(self):
-        self.rect.y += self.speed
+        self.rect.y += self.speed  # gravity
 
 
 # constants
@@ -65,6 +66,9 @@ def update():
     # apple management
     for apple in apples:
         apple.move()
+        if apple.rect.colliderect(floor_rect):
+            apples.remove(apple)
+            apples.append(Apple(apple_image, (random.randint(50, 300), -50), 3))
 
 
 def draw():
