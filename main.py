@@ -55,6 +55,10 @@ apples = [
 # fonts
 font = pygame.font.Font("assets/PixeloidMono.ttf", TILESIZE // 2)
 
+# sound fx
+pickup = pygame.mixer.Sound("assets/powerup.mp3")
+pickup.set_volume(0.1)
+
 running = True  # always true variable
 
 
@@ -85,6 +89,7 @@ def update():
             apples.append(Apple(apple_image, (random.randint(50, 300), -50), speed))
             speed += 0.1
             score += 1
+            pickup.play()
 
 
 def draw():
