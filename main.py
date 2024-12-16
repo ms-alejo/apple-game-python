@@ -19,6 +19,7 @@ class Apple:
 
 # variables
 speed = 3
+score = 0
 
 # constants
 TILESIZE = 32
@@ -51,11 +52,15 @@ apples = [
     Apple(apple_image, (300, 0), 3),
 ]
 
+# fonts
+font = pygame.font.Font("assets/PixeloidMono.ttf", TILESIZE // 2)
+
 running = True  # always true variable
 
 
 def update():
     global speed  # scopes
+    global score
 
     keys = pygame.key.get_pressed()
 
@@ -79,6 +84,7 @@ def update():
             apples.remove(apple)
             apples.append(Apple(apple_image, (random.randint(50, 300), -50), speed))
             speed += 0.1
+            score += 1
 
 
 def draw():
@@ -88,6 +94,9 @@ def draw():
 
     for apple in apples:
         screen.blit(apple.image, apple.rect)
+
+    score_text = font.render(f"Score: {score}", True, "white")
+    screen.blit(score_text, (5, 5))
 
 
 # game loop
