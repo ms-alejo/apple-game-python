@@ -17,6 +17,9 @@ class Apple:
         self.rect.y += self.speed  # gravity
 
 
+# variables
+speed = 3
+
 # constants
 TILESIZE = 32
 
@@ -52,6 +55,8 @@ running = True  # always true variable
 
 
 def update():
+    global speed  # scopes
+
     keys = pygame.key.get_pressed()
 
     if keys[pygame.K_LEFT]:
@@ -66,9 +71,14 @@ def update():
     # apple management
     for apple in apples:
         apple.move()
-        if apple.rect.colliderect(floor_rect):
+
+        if apple.rect.colliderect(floor_rect):  # handle floor collision
             apples.remove(apple)
-            apples.append(Apple(apple_image, (random.randint(50, 300), -50), 3))
+            apples.append(Apple(apple_image, (random.randint(50, 300), -50), speed))
+        elif apple.rect.colliderect(player_rect):  # handle player collision
+            apples.remove(apple)
+            apples.append(Apple(apple_image, (random.randint(50, 300), -50), speed))
+            speed += 0.1
 
 
 def draw():
